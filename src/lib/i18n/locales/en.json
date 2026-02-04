@@ -1,0 +1,364 @@
+{
+	"common": {
+		"save": "Save",
+		"cancel": "Cancel",
+		"delete": "Delete",
+		"edit": "Edit",
+		"create": "Create",
+		"update": "Update",
+		"search": "Search",
+		"filter": "Filter",
+		"export": "Export",
+		"import": "Import",
+		"print": "Print",
+		"download": "Download",
+		"upload": "Upload",
+		"close": "Close",
+		"confirm": "Confirm",
+		"yes": "Yes",
+		"no": "No",
+		"loading": "Loading...",
+		"noData": "No data found",
+		"error": "Error",
+		"success": "Success",
+		"warning": "Warning",
+		"info": "Info",
+		"actions": "Actions",
+		"view": "View",
+		"back": "Back",
+		"next": "Next",
+		"previous": "Previous",
+		"page": "Page",
+		"of": "of",
+		"total": "Total",
+		"select": "Select",
+		"all": "All",
+		"none": "None",
+		"refresh": "Refresh"
+	},
+	"auth": {
+		"login": "Login",
+		"logout": "Logout",
+		"email": "Email",
+		"password": "Password",
+		"rememberMe": "Remember Me",
+		"forgotPassword": "Forgot Password",
+		"loginError": "Login failed. Please check your credentials.",
+		"welcomeBack": "Welcome Back",
+		"loginToContinue": "Login to continue"
+	},
+	"nav": {
+		"dashboard": "Dashboard",
+		"patients": "Patients",
+		"appointments": "Appointments",
+		"emr": "Medical Records",
+		"billing": "Billing",
+		"inventory": "Inventory",
+		"reports": "Reports",
+		"users": "Users",
+		"settings": "Settings",
+		"notifications": "Notifications"
+	},
+	"dashboard": {
+		"title": "Dashboard",
+		"welcome": "Welcome, {name}",
+		"overview": "Overview",
+		"stats": {
+			"totalPatients": "Total Patients",
+			"todayAppointments": "Today's Appointments",
+			"pendingInvoices": "Pending Invoices",
+			"lowStockItems": "Low Stock Items"
+		},
+		"quickActions": "Quick Actions",
+		"recentActivities": "Recent Activities",
+		"upcomingAppointments": "Upcoming Appointments",
+		"appointmentChart": "Appointment Distribution",
+		"revenueChart": "Revenue Chart"
+	},
+	"patients": {
+		"title": "Patients",
+		"newPatient": "New Patient",
+		"patientList": "Patient List",
+		"patientProfile": "Patient Profile",
+		"editPatient": "Edit Patient",
+		"deletePatient": "Delete Patient",
+		"deleteConfirm": "Are you sure you want to delete this patient?",
+		"fields": {
+			"tcNo": "National ID",
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"fullName": "Full Name",
+			"dateOfBirth": "Date of Birth",
+			"age": "Age",
+			"gender": "Gender",
+			"bloodType": "Blood Type",
+			"phone": "Phone",
+			"email": "Email",
+			"address": "Address",
+			"city": "City",
+			"district": "District",
+			"postalCode": "Postal Code",
+			"insurance": "Insurance",
+			"insuranceType": "Insurance Type",
+			"insuranceProvider": "Insurance Provider",
+			"policyNumber": "Policy Number",
+			"emergencyContact": "Emergency Contact",
+			"emergencyContactName": "Name",
+			"emergencyContactRelation": "Relationship",
+			"emergencyContactPhone": "Phone",
+			"allergies": "Allergies",
+			"chronicDiseases": "Chronic Diseases",
+			"medications": "Medications",
+			"notes": "Notes",
+			"status": "Status",
+			"registrationDate": "Registration Date",
+			"lastVisit": "Last Visit"
+		},
+		"gender": {
+			"male": "Male",
+			"female": "Female",
+			"other": "Other"
+		},
+		"status": {
+			"active": "Active",
+			"inactive": "Inactive",
+			"deceased": "Deceased"
+		},
+		"insurance": {
+			"sgk": "Public Insurance",
+			"private": "Private Insurance",
+			"none": "No Insurance"
+		},
+		"tabs": {
+			"overview": "Overview",
+			"medicalHistory": "Medical History",
+			"appointments": "Appointments",
+			"billing": "Billing",
+			"documents": "Documents"
+		}
+	},
+	"appointments": {
+		"title": "Appointments",
+		"newAppointment": "New Appointment",
+		"appointmentList": "Appointment List",
+		"appointmentDetails": "Appointment Details",
+		"editAppointment": "Edit Appointment",
+		"cancelAppointment": "Cancel Appointment",
+		"cancelConfirm": "Are you sure you want to cancel this appointment?",
+		"fields": {
+			"patient": "Patient",
+			"doctor": "Doctor",
+			"date": "Date",
+			"time": "Time",
+			"startTime": "Start Time",
+			"endTime": "End Time",
+			"duration": "Duration",
+			"type": "Type",
+			"status": "Status",
+			"reason": "Reason",
+			"notes": "Notes",
+			"symptoms": "Symptoms",
+			"diagnosis": "Diagnosis",
+			"followUp": "Follow-up"
+		},
+		"type": {
+			"consultation": "Consultation",
+			"follow-up": "Follow-up",
+			"emergency": "Emergency",
+			"routine-checkup": "Routine Checkup"
+		},
+		"status": {
+			"scheduled": "Scheduled",
+			"confirmed": "Confirmed",
+			"in-progress": "In Progress",
+			"completed": "Completed",
+			"cancelled": "Cancelled",
+			"no-show": "No Show"
+		},
+		"view": {
+			"month": "Month",
+			"week": "Week",
+			"day": "Day"
+		}
+	},
+	"emr": {
+		"title": "Electronic Medical Records",
+		"newRecord": "New Record",
+		"medicalHistory": "Medical History",
+		"examination": "Examination",
+		"prescription": "Prescription",
+		"labResults": "Lab Results",
+		"vitalSigns": "Vital Signs",
+		"fields": {
+			"visitDate": "Visit Date",
+			"chiefComplaint": "Chief Complaint",
+			"presentIllness": "Present Illness",
+			"physicalExam": "Physical Examination",
+			"assessment": "Assessment",
+			"plan": "Plan",
+			"followUpInstructions": "Follow-up Instructions",
+			"temperature": "Temperature",
+			"bloodPressure": "Blood Pressure",
+			"heartRate": "Heart Rate",
+			"respiratoryRate": "Respiratory Rate",
+			"oxygenSaturation": "Oxygen Saturation",
+			"weight": "Weight",
+			"height": "Height",
+			"bmi": "BMI"
+		},
+		"prescription": {
+			"medication": "Medication",
+			"dosage": "Dosage",
+			"frequency": "Frequency",
+			"duration": "Duration",
+			"instructions": "Instructions"
+		}
+	},
+	"billing": {
+		"title": "Billing",
+		"invoices": "Invoices",
+		"payments": "Payments",
+		"newInvoice": "New Invoice",
+		"invoiceDetails": "Invoice Details",
+		"editInvoice": "Edit Invoice",
+		"deleteInvoice": "Delete Invoice",
+		"recordPayment": "Record Payment",
+		"fields": {
+			"invoiceNumber": "Invoice Number",
+			"patient": "Patient",
+			"issueDate": "Issue Date",
+			"dueDate": "Due Date",
+			"status": "Status",
+			"items": "Items",
+			"description": "Description",
+			"quantity": "Quantity",
+			"unitPrice": "Unit Price",
+			"taxRate": "Tax Rate",
+			"taxAmount": "Tax Amount",
+			"subtotal": "Subtotal",
+			"total": "Total",
+			"paidAmount": "Paid Amount",
+			"remainingAmount": "Remaining Amount",
+			"paymentDate": "Payment Date",
+			"paymentMethod": "Payment Method",
+			"referenceNumber": "Reference Number"
+		},
+		"status": {
+			"draft": "Draft",
+			"pending": "Pending",
+			"paid": "Paid",
+			"overdue": "Overdue",
+			"cancelled": "Cancelled"
+		},
+		"paymentMethod": {
+			"cash": "Cash",
+			"credit-card": "Credit Card",
+			"debit-card": "Debit Card",
+			"bank-transfer": "Bank Transfer",
+			"insurance": "Insurance"
+		}
+	},
+	"inventory": {
+		"title": "Inventory Management",
+		"medicines": "Medicines",
+		"equipment": "Equipment",
+		"consumables": "Consumables",
+		"newItem": "New Item",
+		"editItem": "Edit Item",
+		"deleteItem": "Delete Item",
+		"stockMovement": "Stock Movement",
+		"alerts": "Alerts",
+		"fields": {
+			"name": "Item Name",
+			"category": "Category",
+			"sku": "SKU",
+			"barcode": "Barcode",
+			"manufacturer": "Manufacturer",
+			"currentStock": "Current Stock",
+			"minStockLevel": "Minimum Stock",
+			"maxStockLevel": "Maximum Stock",
+			"unit": "Unit",
+			"unitPrice": "Unit Price",
+			"expiryDate": "Expiry Date",
+			"status": "Status",
+			"location": "Location"
+		},
+		"status": {
+			"in-stock": "In Stock",
+			"low-stock": "Low Stock",
+			"out-of-stock": "Out of Stock",
+			"expired": "Expired"
+		},
+		"movement": {
+			"purchase": "Purchase",
+			"usage": "Usage",
+			"adjustment": "Adjustment",
+			"return": "Return",
+			"disposal": "Disposal"
+		}
+	},
+	"reports": {
+		"title": "Reports",
+		"financial": "Financial Reports",
+		"patientStatistics": "Patient Statistics",
+		"appointmentAnalysis": "Appointment Analysis",
+		"generate": "Generate Report",
+		"period": {
+			"daily": "Daily",
+			"weekly": "Weekly",
+			"monthly": "Monthly",
+			"yearly": "Yearly",
+			"custom": "Custom"
+		}
+	},
+	"users": {
+		"title": "Users",
+		"newUser": "New User",
+		"editUser": "Edit User",
+		"deleteUser": "Delete User",
+		"fields": {
+			"name": "Name",
+			"email": "Email",
+			"role": "Role",
+			"status": "Status",
+			"department": "Department",
+			"specialization": "Specialization",
+			"licenseNumber": "License Number"
+		},
+		"role": {
+			"admin": "Administrator",
+			"doctor": "Doctor",
+			"nurse": "Nurse",
+			"receptionist": "Receptionist",
+			"pharmacist": "Pharmacist"
+		}
+	},
+	"settings": {
+		"title": "Settings",
+		"clinic": "Clinic Information",
+		"appearance": "Appearance",
+		"notifications": "Notifications",
+		"language": "Language",
+		"theme": "Theme",
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"markAllRead": "Mark All as Read",
+		"noNotifications": "No notifications",
+		"type": {
+			"appointment-reminder": "Appointment Reminder",
+			"appointment-confirmed": "Appointment Confirmed",
+			"appointment-cancelled": "Appointment Cancelled",
+			"payment-reminder": "Payment Reminder",
+			"payment-received": "Payment Received",
+			"lab-result-ready": "Lab Result Ready",
+			"prescription-ready": "Prescription Ready",
+			"stock-alert": "Stock Alert",
+			"system": "System",
+			"other": "Other"
+		}
+	}
+}

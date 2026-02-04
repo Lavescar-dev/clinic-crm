@@ -1,0 +1,364 @@
+{
+	"common": {
+		"save": "Kaydet",
+		"cancel": "İptal",
+		"delete": "Sil",
+		"edit": "Düzenle",
+		"create": "Oluştur",
+		"update": "Güncelle",
+		"search": "Ara",
+		"filter": "Filtrele",
+		"export": "Dışa Aktar",
+		"import": "İçe Aktar",
+		"print": "Yazdır",
+		"download": "İndir",
+		"upload": "Yükle",
+		"close": "Kapat",
+		"confirm": "Onayla",
+		"yes": "Evet",
+		"no": "Hayır",
+		"loading": "Yükleniyor...",
+		"noData": "Veri bulunamadı",
+		"error": "Hata",
+		"success": "Başarılı",
+		"warning": "Uyarı",
+		"info": "Bilgi",
+		"actions": "İşlemler",
+		"view": "Görüntüle",
+		"back": "Geri",
+		"next": "İleri",
+		"previous": "Önceki",
+		"page": "Sayfa",
+		"of": "/",
+		"total": "Toplam",
+		"select": "Seç",
+		"all": "Tümü",
+		"none": "Hiçbiri",
+		"refresh": "Yenile"
+	},
+	"auth": {
+		"login": "Giriş Yap",
+		"logout": "Çıkış Yap",
+		"email": "E-posta",
+		"password": "Şifre",
+		"rememberMe": "Beni Hatırla",
+		"forgotPassword": "Şifremi Unuttum",
+		"loginError": "Giriş başarısız. Lütfen bilgilerinizi kontrol edin.",
+		"welcomeBack": "Tekrar Hoşgeldiniz",
+		"loginToContinue": "Devam etmek için giriş yapın"
+	},
+	"nav": {
+		"dashboard": "Gösterge Paneli",
+		"patients": "Hastalar",
+		"appointments": "Randevular",
+		"emr": "Tıbbi Kayıtlar",
+		"billing": "Faturalama",
+		"inventory": "Stok Yönetimi",
+		"reports": "Raporlar",
+		"users": "Kullanıcılar",
+		"settings": "Ayarlar",
+		"notifications": "Bildirimler"
+	},
+	"dashboard": {
+		"title": "Gösterge Paneli",
+		"welcome": "Hoşgeldiniz, {name}",
+		"overview": "Genel Bakış",
+		"stats": {
+			"totalPatients": "Toplam Hasta",
+			"todayAppointments": "Bugünkü Randevular",
+			"pendingInvoices": "Bekleyen Faturalar",
+			"lowStockItems": "Düşük Stok"
+		},
+		"quickActions": "Hızlı İşlemler",
+		"recentActivities": "Son Aktiviteler",
+		"upcomingAppointments": "Yaklaşan Randevular",
+		"appointmentChart": "Randevu Dağılımı",
+		"revenueChart": "Gelir Grafiği"
+	},
+	"patients": {
+		"title": "Hastalar",
+		"newPatient": "Yeni Hasta",
+		"patientList": "Hasta Listesi",
+		"patientProfile": "Hasta Profili",
+		"editPatient": "Hastayı Düzenle",
+		"deletePatient": "Hastayı Sil",
+		"deleteConfirm": "Bu hastayı silmek istediğinizden emin misiniz?",
+		"fields": {
+			"tcNo": "TC Kimlik No",
+			"firstName": "Ad",
+			"lastName": "Soyad",
+			"fullName": "Ad Soyad",
+			"dateOfBirth": "Doğum Tarihi",
+			"age": "Yaş",
+			"gender": "Cinsiyet",
+			"bloodType": "Kan Grubu",
+			"phone": "Telefon",
+			"email": "E-posta",
+			"address": "Adres",
+			"city": "Şehir",
+			"district": "İlçe",
+			"postalCode": "Posta Kodu",
+			"insurance": "Sigorta",
+			"insuranceType": "Sigorta Tipi",
+			"insuranceProvider": "Sigorta Şirketi",
+			"policyNumber": "Poliçe No",
+			"emergencyContact": "Acil Durum İletişim",
+			"emergencyContactName": "İsim",
+			"emergencyContactRelation": "Yakınlık",
+			"emergencyContactPhone": "Telefon",
+			"allergies": "Alerjiler",
+			"chronicDiseases": "Kronik Hastalıklar",
+			"medications": "İlaçlar",
+			"notes": "Notlar",
+			"status": "Durum",
+			"registrationDate": "Kayıt Tarihi",
+			"lastVisit": "Son Ziyaret"
+		},
+		"gender": {
+			"male": "Erkek",
+			"female": "Kadın",
+			"other": "Diğer"
+		},
+		"status": {
+			"active": "Aktif",
+			"inactive": "Pasif",
+			"deceased": "Vefat Etmiş"
+		},
+		"insurance": {
+			"sgk": "SGK",
+			"private": "Özel Sigorta",
+			"none": "Sigortasız"
+		},
+		"tabs": {
+			"overview": "Genel Bilgiler",
+			"medicalHistory": "Tıbbi Geçmiş",
+			"appointments": "Randevular",
+			"billing": "Faturalar",
+			"documents": "Dökümanlar"
+		}
+	},
+	"appointments": {
+		"title": "Randevular",
+		"newAppointment": "Yeni Randevu",
+		"appointmentList": "Randevu Listesi",
+		"appointmentDetails": "Randevu Detayları",
+		"editAppointment": "Randevuyu Düzenle",
+		"cancelAppointment": "Randevuyu İptal Et",
+		"cancelConfirm": "Bu randevuyu iptal etmek istediğinizden emin misiniz?",
+		"fields": {
+			"patient": "Hasta",
+			"doctor": "Doktor",
+			"date": "Tarih",
+			"time": "Saat",
+			"startTime": "Başlangıç",
+			"endTime": "Bitiş",
+			"duration": "Süre",
+			"type": "Tür",
+			"status": "Durum",
+			"reason": "Sebep",
+			"notes": "Notlar",
+			"symptoms": "Belirtiler",
+			"diagnosis": "Tanı",
+			"followUp": "Takip Randevusu"
+		},
+		"type": {
+			"consultation": "Muayene",
+			"follow-up": "Kontrol",
+			"emergency": "Acil",
+			"routine-checkup": "Rutin Kontrol"
+		},
+		"status": {
+			"scheduled": "Planlandı",
+			"confirmed": "Onaylandı",
+			"in-progress": "Devam Ediyor",
+			"completed": "Tamamlandı",
+			"cancelled": "İptal Edildi",
+			"no-show": "Gelmedi"
+		},
+		"view": {
+			"month": "Aylık",
+			"week": "Haftalık",
+			"day": "Günlük"
+		}
+	},
+	"emr": {
+		"title": "Elektronik Tıbbi Kayıtlar",
+		"newRecord": "Yeni Kayıt",
+		"medicalHistory": "Tıbbi Geçmiş",
+		"examination": "Muayene",
+		"prescription": "Reçete",
+		"labResults": "Laboratuvar Sonuçları",
+		"vitalSigns": "Vital Bulgular",
+		"fields": {
+			"visitDate": "Ziyaret Tarihi",
+			"chiefComplaint": "Ana Şikayet",
+			"presentIllness": "Hastalık Hikayesi",
+			"physicalExam": "Fizik Muayene",
+			"assessment": "Değerlendirme",
+			"plan": "Plan",
+			"followUpInstructions": "Takip Talimatları",
+			"temperature": "Ateş",
+			"bloodPressure": "Tansiyon",
+			"heartRate": "Nabız",
+			"respiratoryRate": "Solunum",
+			"oxygenSaturation": "Oksijen Saturasyonu",
+			"weight": "Kilo",
+			"height": "Boy",
+			"bmi": "BMI"
+		},
+		"prescription": {
+			"medication": "İlaç",
+			"dosage": "Doz",
+			"frequency": "Sıklık",
+			"duration": "Süre",
+			"instructions": "Talimatlar"
+		}
+	},
+	"billing": {
+		"title": "Faturalama",
+		"invoices": "Faturalar",
+		"payments": "Ödemeler",
+		"newInvoice": "Yeni Fatura",
+		"invoiceDetails": "Fatura Detayları",
+		"editInvoice": "Faturayı Düzenle",
+		"deleteInvoice": "Faturayı Sil",
+		"recordPayment": "Ödeme Kaydet",
+		"fields": {
+			"invoiceNumber": "Fatura No",
+			"patient": "Hasta",
+			"issueDate": "Düzenleme Tarihi",
+			"dueDate": "Vade Tarihi",
+			"status": "Durum",
+			"items": "Kalemler",
+			"description": "Açıklama",
+			"quantity": "Miktar",
+			"unitPrice": "Birim Fiyat",
+			"taxRate": "KDV Oranı",
+			"taxAmount": "KDV Tutarı",
+			"subtotal": "Ara Toplam",
+			"total": "Toplam",
+			"paidAmount": "Ödenen",
+			"remainingAmount": "Kalan",
+			"paymentDate": "Ödeme Tarihi",
+			"paymentMethod": "Ödeme Yöntemi",
+			"referenceNumber": "Referans No"
+		},
+		"status": {
+			"draft": "Taslak",
+			"pending": "Bekliyor",
+			"paid": "Ödendi",
+			"overdue": "Vadesi Geçti",
+			"cancelled": "İptal Edildi"
+		},
+		"paymentMethod": {
+			"cash": "Nakit",
+			"credit-card": "Kredi Kartı",
+			"debit-card": "Banka Kartı",
+			"bank-transfer": "Havale",
+			"insurance": "Sigorta"
+		}
+	},
+	"inventory": {
+		"title": "Stok Yönetimi",
+		"medicines": "İlaçlar",
+		"equipment": "Ekipman",
+		"consumables": "Sarf Malzemeler",
+		"newItem": "Yeni Ürün",
+		"editItem": "Ürünü Düzenle",
+		"deleteItem": "Ürünü Sil",
+		"stockMovement": "Stok Hareketi",
+		"alerts": "Uyarılar",
+		"fields": {
+			"name": "Ürün Adı",
+			"category": "Kategori",
+			"sku": "Stok Kodu",
+			"barcode": "Barkod",
+			"manufacturer": "Üretici",
+			"currentStock": "Mevcut Stok",
+			"minStockLevel": "Minimum Stok",
+			"maxStockLevel": "Maksimum Stok",
+			"unit": "Birim",
+			"unitPrice": "Birim Fiyat",
+			"expiryDate": "Son Kullanma Tarihi",
+			"status": "Durum",
+			"location": "Konum"
+		},
+		"status": {
+			"in-stock": "Stokta",
+			"low-stock": "Düşük Stok",
+			"out-of-stock": "Stokta Yok",
+			"expired": "Süresi Dolmuş"
+		},
+		"movement": {
+			"purchase": "Satın Alma",
+			"usage": "Kullanım",
+			"adjustment": "Düzeltme",
+			"return": "İade",
+			"disposal": "İmha"
+		}
+	},
+	"reports": {
+		"title": "Raporlar",
+		"financial": "Finansal Raporlar",
+		"patientStatistics": "Hasta İstatistikleri",
+		"appointmentAnalysis": "Randevu Analizi",
+		"generate": "Rapor Oluştur",
+		"period": {
+			"daily": "Günlük",
+			"weekly": "Haftalık",
+			"monthly": "Aylık",
+			"yearly": "Yıllık",
+			"custom": "Özel"
+		}
+	},
+	"users": {
+		"title": "Kullanıcılar",
+		"newUser": "Yeni Kullanıcı",
+		"editUser": "Kullanıcıyı Düzenle",
+		"deleteUser": "Kullanıcıyı Sil",
+		"fields": {
+			"name": "İsim",
+			"email": "E-posta",
+			"role": "Rol",
+			"status": "Durum",
+			"department": "Departman",
+			"specialization": "Uzmanlık",
+			"licenseNumber": "Lisans No"
+		},
+		"role": {
+			"admin": "Yönetici",
+			"doctor": "Doktor",
+			"nurse": "Hemşire",
+			"receptionist": "Resepsiyonist",
+			"pharmacist": "Eczacı"
+		}
+	},
+	"settings": {
+		"title": "Ayarlar",
+		"clinic": "Klinik Bilgileri",
+		"appearance": "Görünüm",
+		"notifications": "Bildirimler",
+		"language": "Dil",
+		"theme": "Tema",
+		"light": "Açık",
+		"dark": "Koyu",
+		"system": "Sistem"
+	},
+	"notifications": {
+		"title": "Bildirimler",
+		"markAllRead": "Tümünü Okundu İşaretle",
+		"noNotifications": "Bildirim yok",
+		"type": {
+			"appointment-reminder": "Randevu Hatırlatıcı",
+			"appointment-confirmed": "Randevu Onaylandı",
+			"appointment-cancelled": "Randevu İptal Edildi",
+			"payment-reminder": "Ödeme Hatırlatıcı",
+			"payment-received": "Ödeme Alındı",
+			"lab-result-ready": "Laboratuvar Sonucu Hazır",
+			"prescription-ready": "Reçete Hazır",
+			"stock-alert": "Stok Uyarısı",
+			"system": "Sistem",
+			"other": "Diğer"
+		}
+	}
+}
