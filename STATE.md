@@ -1,28 +1,37 @@
-# Project State - Klinik CRM
+# STATE — Medflow (Clinic CRM Demo)
+Date: 2026-02-04 (UTC snapshot)
 
-**Last Updated:** 3 Şubat 2026
+Status: `DEGRADED`
 
-**Overall Status:** In Progress - Critical Bug Fixing & Type Checking
+Public URL: `https://medflow.lavescar.com.tr`  
+Origin URL (resolve): `curl -I --resolve medflow.lavescar.com.tr:443:91.99.192.155 https://medflow.lavescar.com.tr`
 
-**Summary of Progress & Pending Tasks:**
+Current Deploy:
+- Symlink: `/var/www/lavescar/demos/medflow/current -> /var/www/lavescar/demos/medflow/releases/20260204_071957`
+- Runtime model: static via nginx
+- Active Port: `443` (nginx)
 
-Significant progress has been made in refactoring stores to a consistent pattern, fixing critical bugs related to data access, method inconsistencies, and infinite loops. Zod schema issues have been addressed, `appointmentDate` fields updated, store getters initialized, `this` context fixed, and `bits-ui` installed. `lucide-svelte` icon imports and component import paths have been corrected. Svelte 5 `$bindable()` props are being addressed for `DatePicker` and `SearchBar`. `ZodError` access and locale access have been fixed.
+Evidence (commands + observed result):
+- `curl -I https://medflow.lavescar.com.tr` -> `HTTP/2 200`, `content-type: text/html`, `cache-control: no-store...`, `cf-cache-status: DYNAMIC`, `x-robots-tag: noindex...`
+- `curl -I --resolve medflow.lavescar.com.tr:443:91.99.192.155 https://medflow.lavescar.com.tr` -> `HTTP/2 200`, `server: nginx`
+- Asset cache probe:
+  - `curl -I https://medflow.lavescar.com.tr/_app/immutable/entry/start.B6Zv9kHA.js`
+  - Result: `cache-control: public, max-age=31536000, immutable`
+- `/api` behavior probe:
+  - `curl -I https://medflow.lavescar.com.tr/api/health` -> `200 text/html` (SPA fallback)
+- Nginx vhost proof:
+  - `nginx -T | grep -nE 'server_name (medflow)\\.lavescar\\.com\\.tr'`
+  - `/etc/nginx/sites-available/medflow.lavescar.com.tr` satır `13-14`: cache+spa include
 
-**Key Pending Tasks:**
+Known Issues:
+1. `/api/*` path static SPA fallback’e düşüyor (`200 text/html`), yanlış health sinyali üretiyor.  
+   Evidence: `curl -I https://medflow.lavescar.com.tr/api/health`
+2. Demo modu header’ı (`x-demo-mode`) sadece Nexus’ta var; Medflow’da standardizasyon eksik.  
+   Evidence: `curl -I https://medflow.lavescar.com.tr`
+3. Browser-level console/a11y regressions için kanıt toplanmadı (CLI ile kapatılamaz).  
+   Evidence gap: DevTools console/network snapshot yok.
 
-1.  **Chart Integration & Typing:**
-    *   Ensure proper typing for `i18n` access in chart components.
-    *   Investigate `chart.js` and `svelte-chartjs` version compatibility and `ChartData` import issues.
-
-2.  **Component Imports & Svelte 5 Compatibility:**
-    *   Fix remaining component imports in various Svelte files (e.g., `Card`, `Input`, `Select`, `Textarea`) to use direct `.svelte` file paths.
-    *   Update `DatePicker.svelte` and `SearchBar.svelte` for Svelte 5 `$bindable()` syntax.
-
-3.  **Verification & Finalization:**
-    *   Run `npm run check` to verify TypeScript correctness.
-    *   Run `npm run build` to test the production build.
-    *   Run `npm test` to execute unit tests.
-    *   Perform the manual test scenarios checklist.
-
-**Action Required:**
-Continue systematic resolution of pending tasks, prioritizing type safety, component import consistency, and third-party library integration. Address chart-related type errors and ensure all components are correctly imported and functional with Svelte 5.
+Next Actions:
+- `IMPLEMENTATION.md` §2.1 (`/api` guard + nginx route safety)
+- `IMPLEMENTATION.md` §2.2 (health endpoint stratejisi)
+- `IMPLEMENTATION.md` §3 (UX reliability polish)
