@@ -1,0 +1,5 @@
+<svg width="128" height="128" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MedFlow logo mark">
+  <rect x="20" y="20" width="280" height="280" rx="68" fill="#1c3f39"/>
+  <path d="M85 95 L105 225 L125 95 L155 225 L175 95 L205 225 L225 95" fill="none" stroke="#ffffff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M78 245 Q105 222 130 245 Q160 222 185 245 Q215 222 238 245" fill="none" stroke="#ffffff" stroke-width="11" stroke-linecap="round" opacity="0.85"/>
+</svg>

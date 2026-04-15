@@ -1,0 +1,151 @@
+# Phase 06: Inventory, Pharmacy & Supply Chain Management
+
+This phase implements medical supply inventory with auto-reorder thresholds and expiry tracking, in-house pharmacy module, equipment maintenance scheduling, and supplier management with purchase order workflow. This completes the operational backbone of the clinic.
+
+## Tasks
+
+- [ ] Create inventory and pharmacy type definitions:
+  - Enhance existing `src/lib/types/inventory.ts` with:
+    - InventoryItem (add: reorderLevel, reorderQuantity, lastOrderDate, supplierId, location, category, barcode, expiryDate, batchNumber)
+    - Category enum (medication, medical-supply, lab-reagent, office-supply, equipment, PPE)
+    - StockStatus enum (in-stock, low-stock, out-of-stock, expired, damaged)
+  - Create `src/lib/types/pharmacy.ts`:
+    - PharmacyItem (drugId, brandName, genericName, form, strength, manufacturer, rxRequired, controlledSubstance, stock, price)
+    - PharmacyDispense (id, prescriptionId, patientId, pharmacistId, medications, dispensedAt, paymentStatus, notes)
+    - DrugForm enum (tablet, capsule, syrup, injection, topical, inhaler)
+  - Create `src/lib/types/equipment.ts`:
+    - MedicalEquipment (id, name, category, serialNumber, manufacturer, purchaseDate, warrantyExpiry, status, assignedTo, location)
+    - MaintenanceSchedule (id, equipmentId, scheduleType, frequency, lastMaintenance, nextMaintenance, technicianId, notes)
+    - EquipmentStatus enum (operational, under-maintenance, out-of-service, retired)
+
+- [ ] Build supplier and purchase order system:
+  - Create `src/lib/types/supplier.ts`:
+    - Supplier (id, name, category, contact, email, phone, address, paymentTerms, rating, products)
+    - PurchaseOrder (id, supplierId, orderNumber, orderDate, expectedDelivery, items, subtotal, tax, total, status, receivedDate, notes)
+    - POItem (itemId, itemName, quantity, unitPrice, total)
+    - POStatus enum (draft, sent, confirmed, partial-receipt, received, cancelled)
+  - Create supplier database with 15+ medical suppliers (pharmaceuticals, lab supplies, equipment vendors)
+
+- [ ] Implement inventory service with auto-reorder logic:
+  - Update `src/lib/services/inventoryService.ts`:
+    - getLowStockItems - returns items below reorder level
+    - getExpiringItems(days) - returns items expiring within X days
+    - recordStockMovement(itemId, quantity, type, reason) - track stock in/out with audit trail
+    - checkExpiry - auto-flag expired items
+    - generateReorderList - create PO draft for low stock items
+  - Create `src/lib/services/pharmacyService.ts`:
+    - dispenseMedication(prescriptionId, pharmacistId)
+    - checkDrugAvailability(drugId, quantity)
+    - recordDispense with inventory deduction
+    - getDrugsByGenericName, searchDrugs
+  - Create `src/lib/services/equipmentService.ts`:
+    - scheduleMaintenanceMock, recordMaintenance, updateEquipmentStatus
+    - getUpcomingMaintenance, getEquipmentByLocation
+  - Create `src/lib/services/purchaseOrderService.ts`:
+    - createPO, sendPO, receivePO, cancelPO
+    - receivePartialPO with item-by-item receipt
+  - Create stores for inventory, pharmacy, equipment, suppliers, purchase orders
+
+- [ ] Generate comprehensive inventory and pharmacy seed data:
+  - Generate 150+ inventory items across all categories:
+    - 80 medications (common drugs, various forms and strengths)
+    - 30 medical supplies (gloves, syringes, bandages, etc.)
+    - 20 lab reagents with expiry dates
+    - 15 PPE items
+    - 5 office supplies
+  - Set realistic stock levels with edge cases:
+    - 10-15 items below reorder level (trigger alerts)
+    - 8-10 items expiring within 30 days
+    - 3-5 items already expired
+    - 5 items out of stock
+  - Generate 25+ medical equipment records with maintenance schedules
+  - Create 40+ historical dispense records linked to prescriptions
+  - Create 20+ purchase orders in various states
+
+- [ ] Build inventory management UI:
+  - Update `src/routes/(app)/inventory/+page.svelte`:
+    - Add category filter, location filter, status filter
+    - Add "Low Stock" and "Expiring Soon" quick filter chips
+    - Columns: item name, category, SKU/barcode, quantity, reorder level, expiry, location, status
+    - Color-coded status: red for low stock/expired, amber for expiring soon, green for in-stock
+    - Bulk actions: generate PO, mark expired, move location, export inventory report
+  - Create `src/routes/(app)/inventory/alerts/+page.svelte` - Inventory alerts dashboard:
+    - Separate sections: Low Stock Items, Expiring Items (30/60/90 days), Expired Items
+    - Each section with data table and action buttons
+    - "Generate Purchase Order" button for low stock items
+  - Update inventory detail page to show:
+    - Stock movement history (received, dispensed, adjusted, expired)
+    - Supplier information
+    - Expiry date alerts
+    - Reorder parameters (level, quantity)
+  - Create `src/lib/components/inventory/StockAdjustmentForm.svelte` for manual stock adjustments
+
+- [ ] Build pharmacy module UI:
+  - Create `src/routes/(app)/pharmacy/+page.svelte` - Pharmacy dashboard:
+    - Tabs: Dispense, Inventory, History
+    - Dispense tab: pending prescriptions awaiting fulfillment
+    - Inventory tab: drug inventory with search by generic/brand name
+    - History tab: all dispensed medications with filters
+  - Create `src/routes/(app)/pharmacy/dispense/[prescriptionId]/+page.svelte`:
+    - Display prescription details (patient, doctor, medications, dosage)
+    - Check drug availability in pharmacy inventory
+    - Show out-of-stock warnings
+    - Pharmacist verification section
+    - "Dispense" button that updates prescription status and deducts inventory
+    - Print medication labels
+  - Create `src/lib/components/pharmacy/DrugSearchSelector.svelte` - Search drugs by generic or brand name
+  - Add pharmacy quick stats to dashboard (prescriptions pending, low drug stock, dispensed today)
+
+- [ ] Build equipment maintenance UI:
+  - Create `src/routes/(app)/equipment/+page.svelte` - Equipment inventory:
+    - Data table: equipment name, serial, category, location, status, next maintenance
+    - Filters: category, status, location, maintenance due
+    - Quick filters: "Maintenance Due", "Under Maintenance", "Out of Service"
+  - Create `src/routes/(app)/equipment/[id]/+page.svelte` - Equipment detail:
+    - Equipment info (name, serial, manufacturer, purchase date, warranty)
+    - Current status and location
+    - Maintenance schedule and history timeline
+    - "Schedule Maintenance" and "Record Maintenance" buttons
+  - Create `src/routes/(app)/equipment/maintenance/+page.svelte` - Maintenance scheduler:
+    - Calendar view of upcoming maintenance
+    - Overdue maintenance alerts
+  - Create `src/lib/components/equipment/MaintenanceForm.svelte` for scheduling/recording maintenance
+
+- [ ] Build purchase order management UI:
+  - Create `src/routes/(app)/purchasing/+page.svelte` - Purchase orders dashboard:
+    - Tabs: Draft, Sent, Pending Receipt, Received, All
+    - Data table: PO number, supplier, order date, expected delivery, total, status
+    - "Generate PO from Low Stock" button
+  - Create `src/routes/(app)/purchasing/[id]/+page.svelte` - PO detail:
+    - PO header (number, supplier, dates, status)
+    - Line items table with quantities and prices
+    - Totals section
+    - Action buttons: send to supplier, receive items, cancel PO
+    - Receiving workflow: item-by-item receipt with quantity confirmation
+  - Create `src/routes/(app)/purchasing/new/+page.svelte` - Create PO:
+    - Supplier selector
+    - Item picker with quantity and unit price
+    - Auto-calculate totals
+    - Save as draft or send to supplier
+  - Create `src/lib/components/purchasing/SupplierSelector.svelte`
+
+- [ ] Add inventory/pharmacy integration to clinical workflows:
+  - Update prescription workflow to check drug availability before finalizing
+  - Show stock warnings in prescription form if drug is low/out of stock
+  - Link dispense action from prescription detail page to pharmacy dispense workflow
+  - Update lab order workflow to check reagent availability
+  - Add equipment availability check when scheduling procedures requiring specific equipment
+
+- [ ] Test inventory, pharmacy, and equipment modules:
+  - Navigate to /inventory and verify 150+ items display
+  - Click "Low Stock" filter and verify only items below reorder level appear
+  - Navigate to /inventory/alerts and verify expiring items section shows items with <30 days
+  - Open a low stock item and click "Generate PO", verify PO draft is created with correct quantity
+  - Navigate to /pharmacy and verify pending prescriptions display
+  - Open a prescription dispense page, verify drug availability checks work
+  - Dispense medication and verify inventory quantity decreases
+  - Navigate to /equipment and verify maintenance schedule displays
+  - Schedule a maintenance for an equipment item
+  - Navigate to /purchasing and verify POs display in correct status tabs
+  - Open a sent PO and receive items, verify inventory quantities increase
+  - Test auto-reorder: manually set an item below reorder level and verify alert appears

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Full background circle for maskable icon -->
+  <circle cx="256" cy="256" r="256" fill="#ea580c"/>
+
+  <!-- Medical cross and elements - scaled down 80% and centered for safe zone -->
+  <g transform="translate(256, 256) scale(0.7) translate(-256, -256)">
+    <g fill="#ffffff">
+      <!-- Vertical bar of cross -->
+      <rect x="216" y="120" width="80" height="272" rx="8"/>
+
+      <!-- Horizontal bar of cross -->
+      <rect x="120" y="216" width="272" height="80" rx="8"/>
+    </g>
+
+    <!-- Heartbeat line -->
+    <g fill="none" stroke="#fbbf24" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+      <path d="M 100 430 L 140 430 L 160 400 L 180 460 L 220 380 L 240 430 L 280 430"/>
+      <path d="M 320 430 L 350 430 L 370 400 L 390 460 L 412 430"/>
+    </g>
+
+    <!-- Stethoscope accent -->
+    <circle cx="380" cy="180" r="32" fill="none" stroke="#fbbf24" stroke-width="8"/>
+    <circle cx="380" cy="180" r="16" fill="#fbbf24"/>
+
+    <!-- Letter 'C' badge for Clinic -->
+    <circle cx="256" cy="256" r="50" fill="#1f2937" opacity="0.3"/>
+    <text x="256" y="280" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="#ffffff" text-anchor="middle">C</text>
+  </g>
+</svg>

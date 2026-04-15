@@ -1,0 +1,223 @@
+# Phase 09: UX Polish & Enterprise Design System
+
+This phase elevates the application to enterprise-level visual polish with a command palette (Cmd+K), consistent data table patterns with inline editing and bulk actions, refined sidebar navigation grouped by domain, role-based dashboard customization, and polished dark/light themes. This phase focuses purely on user experience refinement.
+
+## Tasks
+
+- [ ] Implement Cmd+K command palette for power users:
+  - Install cmdk or ninja-keys library: `npm install cmdk-sv` (Svelte port of cmdk)
+  - Create `src/lib/components/shared/CommandPalette.svelte`:
+    - Global keyboard listener for Cmd+K (Mac) or Ctrl+K (Windows/Linux)
+    - Modal dialog with search input
+    - Command categories: Navigation, Actions, Patients, Appointments, Search
+    - Navigation commands: "Go to Dashboard", "Go to Patients", "Go to Lab Orders", etc.
+    - Action commands: "New Patient", "New Appointment", "Check In Patient", etc.
+    - Patient search: type patient name to quickly navigate to patient profile
+    - Recent pages history
+    - Keyboard navigation with arrow keys and Enter to execute
+    - Fuzzy search matching
+    - Show keyboard shortcuts next to commands (e.g., "New Patient" → "N")
+  - Add command palette to root layout so it's globally accessible
+  - Style with glassmorphism effect for modern look
+
+- [ ] Create unified data table component system:
+  - Create `src/lib/components/shared/DataTableAdvanced.svelte` to replace existing DataTable:
+    - Built-in features: sorting, filtering, pagination, search, column visibility toggle
+    - Inline editing mode: double-click cell to edit, save/cancel actions
+    - Row selection with checkboxes
+    - Bulk actions toolbar (appears when rows selected): delete, export, bulk edit, assign
+    - Column customization: drag to reorder (visual only), show/hide columns via dropdown
+    - Density toggle (compact, normal, comfortable)
+    - Export to CSV/Excel button
+    - Responsive: stack columns on mobile, horizontal scroll on tablet
+    - Loading skeleton states
+    - Empty state with illustrations and CTA
+  - Create `src/lib/components/shared/TableFilters.svelte`:
+    - Filter builder UI for complex queries
+    - Date range picker integration
+    - Multi-select filters for categories
+    - Save filter presets
+  - Replace all existing data tables with new DataTableAdvanced component across the app
+
+- [ ] Refactor sidebar navigation with domain grouping:
+  - Update `src/lib/components/layout/Sidebar.svelte`:
+    - Group nav items by domain with section headers:
+      - **Clinical Operations**: Dashboard, Patients, Appointments, EMR, Prescriptions, Lab, Treatments, Referrals
+      - **Financial**: Billing, Invoices, Payments, Insurance, Revenue Analytics
+      - **Operations**: Inventory, Pharmacy, Equipment, Purchasing, Queue
+      - **Administration**: Staff, Documents, Audit Logs, Branches, Settings
+      - **Analytics**: Reports, Patient Analytics, Doctor Performance, Financial Analytics
+    - Collapsible sections (expand/collapse with chevron icons)
+    - Persistent collapse state in localStorage
+    - Sidebar collapse toggle (icon-only mode with tooltips)
+    - Active item indicator with left border accent
+    - Badge indicators on nav items (e.g., "5" on Lab Orders for pending items)
+  - Add keyboard shortcut hints in tooltips (e.g., "Dashboard → D")
+
+- [ ] Build role-based dashboard with KPI cards:
+  - Create reusable KPI card component `src/lib/components/dashboard/KPICard.svelte`:
+    - Metric title, large value display
+    - Trend indicator (up/down arrow with percentage change)
+    - Sparkline mini chart showing 7-day trend
+    - Color-coded by metric type (green for positive, red for negative, blue for neutral)
+    - Click to drill-down to detailed view
+  - Update `src/routes/(app)/dashboard/+page.svelte` with role-specific layouts:
+    - **Admin/Executive Dashboard**:
+      - KPIs: Total Revenue, Patients Seen, Appointments Today, Outstanding Balance
+      - Revenue chart (7-day trend)
+      - Appointment volume chart
+      - Top performing doctors widget
+      - Recent activity feed
+    - **Doctor Dashboard**:
+      - KPIs: My Patients Today, Avg Consultation Time, Pending Lab Reviews, Satisfaction Rating
+      - Today's appointment schedule
+      - Pending tasks (lab reviews, prescription approvals, referrals)
+      - Recent patient notes
+    - **Receptionist Dashboard**:
+      - KPIs: Check-ins Today, Waiting Patients, Upcoming Appointments, No-shows This Week
+      - Real-time queue widget
+      - Today's appointment calendar
+      - Quick check-in interface
+    - **Pharmacist Dashboard**:
+      - KPIs: Prescriptions Filled Today, Pending Prescriptions, Low Stock Drugs, Dispensing Revenue
+      - Pending prescriptions list
+      - Low stock alerts
+      - Recent dispenses
+    - **Lab Technician Dashboard**:
+      - KPIs: Samples Collected, Tests in Progress, Pending Results, Stat Orders
+      - Sample collection queue
+      - Tests awaiting processing
+      - Results awaiting doctor review
+  - Add dashboard customization (simulated): "pin/unpin widgets", "rearrange widgets"
+
+- [ ] Refine color system and status indicators:
+  - Create `src/lib/utils/statusColors.ts` with standardized color mapping:
+    - **Green** (success): completed, paid, approved, active, in-stock, normal
+    - **Amber** (warning): pending, in-progress, partial, low-stock, expiring-soon
+    - **Red** (danger): overdue, failed, rejected, cancelled, out-of-stock, expired, critical
+    - **Blue** (info): scheduled, sent, new, info
+    - **Gray** (neutral): draft, inactive, archived
+  - Update all StatusBadge components to use consistent color scheme
+  - Apply to: appointment status, payment status, inventory status, lab result flags, claim status, etc.
+  - Add icons to status badges for visual clarity (check, clock, alert, x, etc.)
+  - Ensure color choices work in both light and dark themes (test contrast)
+
+- [ ] Polish dark and light themes:
+  - Review and refine Tailwind theme configuration in `tailwind.config.js`:
+    - Ensure all shadcn-svelte color variables are defined for both themes
+    - Add custom accent colors that work in both modes
+    - Define neutral grays that provide good contrast in both themes
+  - Update `app.css` with theme-specific refinements:
+    - Subtle background gradients for cards in light mode
+    - Darker, richer backgrounds in dark mode (avoid pure black, use dark gray)
+    - Border colors that provide separation without harshness
+  - Test dark mode specifically:
+    - Charts should use dark-compatible colors
+    - Shadows should be lighter/more subtle
+    - Text contrast should meet WCAG AA standards
+    - Glass effects should work (semi-transparent overlays)
+  - Add smooth theme transition animations (color transitions on theme toggle)
+  - Create `src/lib/components/shared/ThemeToggle.svelte` with sun/moon icons
+
+- [ ] Enhance global layout and header:
+  - Update `src/routes/(app)/+layout.svelte`:
+    - Add demo banner at very top (already created in Phase 1)
+    - Header with: logo, breadcrumbs, command palette trigger (Cmd+K hint), branch selector, notifications bell, theme toggle, user menu
+    - Breadcrumb navigation showing current location (e.g., "Analytics > Patients")
+    - User menu dropdown: profile, settings, switch role (for demo), logout
+    - Responsive header: hamburger menu on mobile
+  - Add loading bar at top of page for navigation transitions (use SvelteKit's navigating store)
+  - Create `src/lib/components/layout/Breadcrumbs.svelte` auto-generated from route
+
+- [ ] Add micro-interactions and animations:
+  - Install motion library if needed (Svelte has built-in transitions)
+  - Add subtle transitions:
+    - Button hover states with scale transform
+    - Card hover elevations
+    - Smooth collapse/expand animations
+    - Fade in animations for page loads
+    - Slide transitions for modals and dropdowns
+    - Skeleton loading states for async data
+  - Create `src/lib/utils/transitions.ts` with reusable transition configs
+  - Add loading states to all async actions (buttons show spinner while processing)
+  - Add toast notifications for all CRUD operations (success/error feedback)
+  - Use svelte-sonner for toast system (already installed)
+
+- [ ] Create empty states and error states:
+  - Design empty state illustrations or use Lucide icons
+  - Create `src/lib/components/shared/EmptyState.svelte`:
+    - Icon or illustration
+    - Headline (e.g., "No patients found")
+    - Subtext (e.g., "Create your first patient to get started")
+    - CTA button (e.g., "Add Patient")
+  - Apply to all list views when no data exists
+  - Create `src/lib/components/shared/ErrorState.svelte` for error conditions
+  - Add 404 page with helpful navigation links
+  - Add error boundary for unexpected errors
+
+- [ ] Improve form UX and validation:
+  - Create `src/lib/components/forms/FormInput.svelte` enhanced input component:
+    - Built-in validation with error messages
+    - Required field indicators
+    - Character count for text areas
+    - Input masks for phone numbers, TC Kimlik, etc.
+  - Add real-time validation feedback (show errors on blur, not on every keystroke)
+  - Create multi-step form component for complex forms (wizards)
+  - Add "unsaved changes" warning when navigating away from dirty forms
+  - Improve date pickers with shortcuts (Today, Tomorrow, Next Week)
+
+- [ ] Add keyboard shortcuts and accessibility:
+  - Implement global shortcuts:
+    - `Cmd+K`: Open command palette
+    - `N`: New patient (when on patients page)
+    - `A`: New appointment
+    - `?`: Show keyboard shortcuts help
+    - `Esc`: Close modals
+  - Create `src/lib/components/shared/KeyboardShortcutsHelp.svelte` modal (triggered by `?`)
+  - Add `aria-labels` to all interactive elements
+  - Ensure keyboard navigation works throughout (tab order, focus visible)
+  - Test with screen reader (basic check)
+
+- [ ] Final UX polish pass:
+  - Review every page for visual consistency:
+    - Consistent spacing and alignment
+    - Consistent button styles and sizes
+    - Consistent typography hierarchy (h1, h2, h3, body, small)
+    - Consistent card shadows and borders
+  - Ensure all interactive elements have proper hover/active/focus states
+  - Verify all icons are from same icon set (Lucide) and same size
+  - Check mobile responsiveness on all pages (test on 375px, 768px, 1024px widths)
+  - Add proper page titles and meta descriptions
+  - Verify all links work and navigate correctly
+  - Check that all forms can be submitted and show appropriate feedback
+  - Ensure loading states appear for all async operations
+  - Test theme toggle works on all pages without glitches
+
+- [ ] Test UX enhancements comprehensively:
+  - Start dev server and test command palette (Cmd+K):
+    - Verify modal opens
+    - Type to search for pages/actions
+    - Execute navigation command and verify it works
+    - Close with Esc
+  - Navigate to any list page and test DataTableAdvanced:
+    - Sort columns by clicking headers
+    - Filter using search and filters
+    - Select multiple rows and verify bulk actions toolbar appears
+    - Double-click cell to edit (inline editing)
+    - Toggle column visibility
+    - Test export to CSV (simulated)
+  - Test sidebar navigation:
+    - Verify nav items are grouped by domain
+    - Collapse/expand sections and verify state persists
+    - Toggle sidebar to icon-only mode
+    - Verify active item is highlighted
+  - Switch between user roles and verify dashboard layout changes
+  - Test theme toggle on multiple pages:
+    - Verify smooth transition
+    - Check that all elements look good in both themes
+    - Verify charts adjust colors for dark mode
+  - Test all keyboard shortcuts work
+  - Test empty states: clear all patients (or filter to show none) and verify empty state appears
+  - Test mobile responsive layout on narrow viewport
+  - Verify all forms show validation errors correctly
+  - Check that all CRUD operations show toast notifications

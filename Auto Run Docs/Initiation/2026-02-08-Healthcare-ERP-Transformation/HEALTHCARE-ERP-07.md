@@ -1,0 +1,177 @@
+# Phase 07: Administrative Operations & Compliance
+
+This phase implements waiting room queue management with real-time display, multi-branch support, document management system, KVKK/GDPR-compliant audit logging, and enhanced notification center with SMS/email simulation. This completes the administrative infrastructure.
+
+## Tasks
+
+- [ ] Create waiting room queue management system:
+  - Create `src/lib/types/queue.ts`:
+    - QueueEntry (id, patientId, appointmentId, arrivalTime, doctorId, department, status, estimatedWaitTime, queuePosition, calledAt)
+    - QueueStatus enum (waiting, called, in-consultation, completed, no-show, left)
+  - Create `src/lib/services/queueService.ts`:
+    - checkIn(appointmentId) - add patient to queue
+    - callNext(doctorId) - move next patient from waiting to called
+    - updateStatus, calculateWaitTime, getQueueByDoctor, getQueueByDepartment
+    - Auto-calculate wait times based on average consultation duration and queue position
+  - Create `src/lib/stores/queue.ts` with derived stores for active queue by department
+  - Generate seed data with 15+ patients currently in queue across various departments
+
+- [ ] Build multi-branch support system:
+  - Create `src/lib/types/branch.ts`:
+    - Branch (id, name, code, address, phone, email, manager, departments, operatingHours, status)
+    - BranchDepartment (departmentId, name, rooms, capacity, activeStaff)
+    - OperatingHours (dayOfWeek, openTime, closeTime, breaks)
+  - Create 3 branch locations in seed data:
+    - Main Campus (Kadıköy, Istanbul) - full-service with all departments
+    - Polyclinic Branch (Beşiktaş, Istanbul) - outpatient only
+    - Diagnostic Center (Ankara) - lab and imaging only
+  - Update all entity types to include optional branchId field
+  - Create `src/lib/stores/branch.ts` with current branch selection
+  - Add branch context to all data queries and filtering
+
+- [ ] Implement document management system:
+  - Create `src/lib/types/document.ts`:
+    - Document (id, patientId, appointmentId, category, title, fileName, fileSize, mimeType, uploadedBy, uploadedAt, tags, description, accessLevel)
+    - DocumentCategory enum (consent-form, medical-report, lab-result, imaging, prescription, insurance, identification, other)
+    - AccessLevel enum (patient, doctor, admin, insurance, public)
+  - Create `src/lib/services/documentService.ts`:
+    - uploadDocument (simulated with base64 data URL or mock file reference)
+    - getDocumentsByPatient, getDocumentsByCategory
+    - downloadDocument, deleteDocument
+    - searchDocuments by title, tags, category
+  - Generate 100+ mock documents in seed data:
+    - Consent forms, lab reports (PDFs), imaging files, prescription scans
+    - Linked to patients and appointments
+
+- [ ] Build KVKK/GDPR-compliant audit logging:
+  - Create `src/lib/types/audit.ts`:
+    - AuditLog (id, userId, action, resource, resourceId, details, ipAddress, timestamp, branchId)
+    - AuditAction enum (view, create, update, delete, print, export, access-denied)
+    - Resource enum (patient, emr, prescription, invoice, document, user, staff)
+  - Create `src/lib/services/auditService.ts`:
+    - logAction(userId, action, resource, resourceId, details)
+    - getAuditLogs with filters (user, resource, action, date range)
+    - getPatientAccessLog(patientId) - who accessed this patient's records
+  - Implement audit logging in all sensitive operations:
+    - Patient record access, EMR viewing, prescription creation, document access, invoice viewing
+  - Generate 500+ audit log entries in seed data showing realistic access patterns
+  - Create `src/lib/stores/audit.ts`
+
+- [ ] Build enhanced notification center:
+  - Update `src/lib/types/notification.ts`:
+    - Add fields: channel (in-app, sms, email), deliveryStatus, scheduledFor, sentAt, readAt
+    - NotificationChannel enum, DeliveryStatus enum (pending, sent, failed, read)
+  - Create notification templates for:
+    - Appointment reminders (24h before, 2h before)
+    - Lab results ready
+    - Payment due/overdue
+    - Prescription ready for pickup
+    - Referral received
+    - Document uploaded
+  - Create `src/lib/services/notificationService.ts`:
+    - sendNotification with multi-channel support (simulated)
+    - scheduleNotification for future delivery
+    - markAsRead, markAllAsRead, deleteNotification
+    - getUnreadCount
+  - Add SMS/email simulation:
+    - Display sent messages in notification history
+    - Show "SMS sent to +90 5XX XXX XX XX" and "Email sent to patient@example.com" confirmations
+  - Generate 200+ notifications in seed data with various types and channels
+
+- [ ] Build waiting room management UI:
+  - Create `src/routes/(app)/queue/+page.svelte` - Waiting room dashboard:
+    - Real-time queue display organized by department/doctor
+    - Each queue entry card shows: patient name, arrival time, estimated wait, queue position
+    - Color-coded status indicators
+    - "Call Next" button for each doctor
+    - "Check In" button to manually add walk-in patients
+    - Auto-refresh every 30 seconds (simulated with store updates)
+  - Create `src/lib/components/queue/QueueDisplay.svelte` - TV display view for waiting room:
+    - Large font display of current queue
+    - Show queue numbers and status
+    - Highlight just-called patients
+    - Auto-rotate between departments if multi-department clinic
+  - Add queue quick stats to receptionist dashboard (total waiting, average wait time)
+
+- [ ] Build multi-branch management UI:
+  - Create `src/routes/(app)/settings/branches/+page.svelte` - Branch management:
+    - List of all branches with status
+    - Branch details: address, contact, departments, operating hours
+    - Add/edit branch forms
+  - Create branch selector component in header:
+    - Dropdown showing current branch
+    - Switch branch functionality (filters all data by selected branch)
+    - Show "All Branches" option for admin users
+  - Add branch filter to all major data tables (appointments, patients, inventory)
+  - Update dashboard to show branch-specific metrics or aggregated if "All Branches" selected
+
+- [ ] Build document management UI:
+  - Create `src/routes/(app)/documents/+page.svelte` - Document library:
+    - Grid or list view of all documents
+    - Filters: category, patient, date range, uploaded by
+    - Search by title, tags
+    - Upload button (simulated - show upload dialog, generate mock document)
+  - Create `src/lib/components/documents/DocumentUploader.svelte`:
+    - File drop zone
+    - Category selector, tags input
+    - Patient/appointment linking
+    - Mock file upload with progress bar simulation
+  - Add "Documents" tab to patient profile showing patient-specific documents
+  - Create document viewer modal for previewing documents
+
+- [ ] Build audit log and compliance UI:
+  - Create `src/routes/(app)/admin/audit-logs/+page.svelte` - Audit log viewer (admin only):
+    - Data table: timestamp, user, action, resource, resource ID, details, IP
+    - Filters: user, action type, resource type, date range
+    - Search by resource ID or details
+    - Export to CSV functionality (simulated)
+  - Create patient access log view in patient profile:
+    - Shows who accessed this patient's records and when
+    - Helpful for KVKK compliance and patient privacy inquiries
+  - Add audit icon to sensitive pages indicating access is logged
+
+- [ ] Build notification center UI:
+  - Update `src/routes/(app)/notifications/+page.svelte`:
+    - Tabs: All, Unread, In-App, SMS, Email
+    - Notification cards showing type, message, channel, timestamp, delivery status
+    - "Mark all as read" action
+    - Filter by type, date range
+  - Create notification dropdown in header:
+    - Bell icon with unread count badge
+    - Dropdown showing recent 5 notifications
+    - "View All" link to full notification center
+  - Create `src/lib/components/notifications/NotificationScheduler.svelte` for admin to schedule bulk notifications
+  - Simulate notification sending:
+    - Show toast when notification sent
+    - Display sent SMS/email in notification history with delivery status
+    - Auto-mark as "sent" after 2-3 second delay
+
+- [ ] Add administrative quick actions and dashboard widgets:
+  - Update main dashboard with administrative widgets:
+    - Current queue summary (total waiting, by department)
+    - Upcoming scheduled notifications
+    - Recent audit activity (for admins)
+    - Document upload activity
+  - Add "Administrative" section to sidebar navigation:
+    - Queue Management
+    - Document Library
+    - Audit Logs (admin only)
+    - Branch Management
+
+- [ ] Test administrative modules end-to-end:
+  - Navigate to /queue and verify 15+ patients display in queue
+  - Click "Call Next" and verify patient status updates to "called"
+  - Simulate check-in for a new walk-in patient
+  - Navigate to /settings/branches and verify all 3 branches display
+  - Switch branch in header and verify data filters correctly
+  - Navigate to /documents and verify documents display
+  - Upload a mock document and verify it appears in the list
+  - Open patient profile and verify Documents tab shows patient-specific files
+  - Navigate to /admin/audit-logs (as admin) and verify 500+ log entries
+  - Filter audit logs by action type and verify filtering works
+  - Open patient profile and view patient access log
+  - Navigate to /notifications and verify all notifications display
+  - Test notification tabs (All, SMS, Email) and verify filtering
+  - Click bell icon in header and verify dropdown shows recent notifications
+  - Mark notification as read and verify unread count decreases
+  - Test that all audit-logged actions (viewing patient, accessing EMR) create audit entries
